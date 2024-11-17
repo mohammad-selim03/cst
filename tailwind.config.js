@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@shadcn-ui/**/*.{js,ts,jsx,tsx}", // Add this line
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};

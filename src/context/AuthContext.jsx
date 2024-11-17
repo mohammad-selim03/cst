@@ -34,12 +34,19 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const setAuthError = (message) => {
+    setError(message); // Function to update the error state
+  };
 
   // Register a new user with email and password
   const register = async (email, password) => {
     try {
-      return await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
+      setError(null);
     } catch (error) {
+      setAuthError("Registration failed: " + err.message);
       console.error("Error registering user:", error.message);
     }
   };
@@ -47,8 +54,10 @@ export const AuthProvider = ({ children }) => {
   // Login with email and password
   const login = async (email, password) => {
     try {
-      return await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null); 
     } catch (error) {
+      setAuthError("Login failed: " + err.message); 
       console.error("Error logging in:", error.message);
     }
   };
@@ -66,7 +75,8 @@ export const AuthProvider = ({ children }) => {
   // Initialize reCAPTCHA for phone number authentication
   const setupRecaptcha = () => {
     if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth,
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        auth,
         "recaptcha-container",
         {
           size: "invisible", // Use 'invisible' for invisible reCAPTCHA
