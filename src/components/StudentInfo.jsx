@@ -32,26 +32,56 @@ const StudentInfo = () => {
   }
 
   return (
-    <div>
-      <h1>Student Information</h1>
-      {students.length === 0 ? (
-        <p>No students found</p>
-      ) : (
-        <ul>
-          {students.map((student, index) => (
-            <li key={index}>
-              <strong>Name:</strong> {student.fullName} <br />
-              <strong>Email:</strong> {student.email} <br />
-              <strong>Phone:</strong> {student.phone} <br />
-              <strong>Graduation Year:</strong> {student.graduationYear} <br />
-              <strong>Course:</strong> {student.course} <br />
-              <strong>Address:</strong> {student.address} <br />
-              <hr />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <div className="p-6 bg-gray-50 min-h-screen">
+    <h1 className="text-3xl font-bold text-center mb-8">Student Information</h1>
+    {students.length === 0 ? (
+      <p className="text-center text-gray-600">No students found</p>
+    ) : (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {students.map((student, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-lg rounded-lg p-6 border border-gray-200"
+          >
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              {student.fullName}
+            </h2>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Phone:</strong> {student.phone}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Email:</strong> {student.email}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Dept Name:</strong> {student.deptName}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Session:</strong> {student.session}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Passing Year:</strong> {student.passingYear}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Shift:</strong> {student.shift}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Group:</strong> {student.group}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Roll:</strong> {student.roll}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Address:</strong> {student.address}
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-gray-900">Current Position:</strong> {student.currentPosition}
+            </p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  
   );
 }
 

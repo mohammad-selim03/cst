@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebase.config'; // Import Firestore instance
+import toast from 'react-hot-toast';
+import Input from './Input';
 
 const Form = () => {
   const [studentInfo, setStudentInfo] = useState({
-    fullName: '',
-    email: '',
+    name: '',
     phone: '',
-    graduationYear: '',
-    course: '',
+    email: '',
+    deptName: '',
+    session: '',
+    passingYear: '',
+    shift: '',
+    group: '',
+    roll: '',
     address: '',
+    currentPosition: '',
   });
 
   const [message, setMessage] = useState('');
@@ -28,51 +35,47 @@ const Form = () => {
       // Add the studentInfo to the "students" collection in Firestore
       await addDoc(collection(db, 'students'), studentInfo);
       setMessage('Student information submitted successfully!');
+      toast.success('Student information submitted successfully!');
       setStudentInfo({
-        fullName: '',
-        email: '',
+        name: '',
         phone: '',
-        graduationYear: '',
-        course: '',
+        email: '',
+        deptName: '',
+        session: '',
+        passingYear: '',
+        shift: '',
+        group: '',
+        roll: '',
         address: '',
+        currentPosition: '',
       });
     } catch (error) {
       console.error('Error adding document: ', error);
       setMessage('Failed to submit student information.');
+      toast.error('Failed to submit student information.');
     }
   };
 
   return (
     <div>
       <h1>Ex-Student Information Form</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-start">
+      <form onSubmit={handleSubmit} className="flex flex-col items-start space-y-4">
         <div>
-          <label>Full Name:</label>
-          <input
-            className="border border-gray-500 rounded-md px-3 py-2"
+         
+          <Input
+            label={"Name"}
             type="text"
-            name="fullName"
-            value={studentInfo.fullName}
+            name="name"
+            value={studentInfo.name}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label>Email:</label>
+          <label>Phone *</label>
           <input
             className="border border-gray-500 rounded-md px-3 py-2"
-            type="email"
-            name="email"
-            value={studentInfo.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Phone Number:</label>
-          <input
-            className="border border-gray-500 rounded-md px-3 py-2"
-            type="tel"
+            type="number"
             name="phone"
             value={studentInfo.phone}
             onChange={handleChange}
@@ -80,34 +83,100 @@ const Form = () => {
           />
         </div>
         <div>
-          <label>Graduation Year:</label>
+          <label>Email</label>
           <input
             className="border border-gray-500 rounded-md px-3 py-2"
-            type="number"
-            name="graduationYear"
-            value={studentInfo.graduationYear}
+            type="email"
+            name="email"
+            value={studentInfo.email}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div>
-          <label>Course:</label>
+          <label>Dept Name *</label>
           <input
             className="border border-gray-500 rounded-md px-3 py-2"
             type="text"
-            name="course"
-            value={studentInfo.course}
+            name="deptName"
+            value={studentInfo.deptName}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label>Address:</label>
+          <label>Session *</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="text"
+            name="session"
+            value={studentInfo.session}
+            onChange={handleChange}
+          
+          />
+        </div>
+        <div>
+          <label>Passing Year</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="number"
+            name="passingYear"
+            value={studentInfo.passingYear}
+            onChange={handleChange}
+      
+          />
+        </div>
+        <div>
+          <label>Shift</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="text"
+            name="shift"
+            value={studentInfo.shift}
+            onChange={handleChange}
+     
+          />
+        </div>
+        <div>
+          <label>Group</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="text"
+            name="group"
+            value={studentInfo.group}
+            onChange={handleChange}
+           
+          />
+        </div>
+        <div>
+          <label>Roll *</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="number"
+            name="roll"
+            value={studentInfo.roll}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Address</label>
           <input
             className="border border-gray-500 rounded-md px-3 py-2"
             type="text"
             name="address"
             value={studentInfo.address}
+            onChange={handleChange}
+           
+          />
+        </div>
+        <div>
+          <label>Current Position *</label>
+          <input
+            className="border border-gray-500 rounded-md px-3 py-2"
+            type="text"
+            name="currentPosition"
+            value={studentInfo.currentPosition}
             onChange={handleChange}
             required
           />
