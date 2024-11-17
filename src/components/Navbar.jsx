@@ -19,6 +19,7 @@ const pages = [
   { title: "Home", link: "/" },
   { title: "Form", link: "/form" },
   { title: "Student Information", link: "/student-info" },
+  // Don't include Login/Register in the pages array, conditionally render them below
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -160,39 +161,86 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          {/* User settings */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+          {/* Conditionally render Login and Register based on currentUser */}
+          {!currentUser ? (
+            <>
+              <Button
+                component={Link}
+                to="/login"
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  textTransform: "capitalize",
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                component={Link}
+                to="/register"
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  textTransform: "capitalize",
+                }}
+              >
+                Register
+              </Button>
+            </>
+          ) : (
+            <Button
+              // component={Link}
+              onClick={() => logout()}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                textTransform: "capitalize",
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={setting === "Logout" ? handleLogout : handleCloseUserMenu}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              Logout
+            </Button>
+          )}
+
+          {/* User settings */}
+          {currentUser && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === "Logout" ? handleLogout : handleCloseUserMenu
+                    }
+                  >
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

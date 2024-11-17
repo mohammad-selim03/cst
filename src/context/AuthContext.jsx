@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       setError(null);
     } catch (error) {
-      setAuthError("Registration failed: " + err.message);
+      setAuthError("Registration failed: " + error.message);
       console.error("Error registering user:", error.message);
     }
   };
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       await signInWithEmailAndPassword(auth, email, password);
       setError(null); 
     } catch (error) {
-      setAuthError("Login failed: " + err.message); 
+      setAuthError("Login failed: " + error.message); 
       console.error("Error logging in:", error.message);
     }
   };

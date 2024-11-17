@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase.config"; // Make sure the Firebase config is correct
 import { collection, getDocs } from "firebase/firestore";
+import { useAuth } from "@/context/AuthContext";
 
 const StudentInfo = () => {
   // State to store the student information
@@ -33,6 +34,8 @@ const StudentInfo = () => {
     setSearchTerm(event.target.value);
   };
 
+  const { currentUser } = useAuth();
+
   // Filter students based on the search term
   const filteredStudents = students?.filter((student) => {
     const searchTermLower = searchTerm?.toLowerCase();
@@ -55,15 +58,18 @@ const StudentInfo = () => {
       </h1>
 
       {/* Search bar */}
-      <div className="mb-4 flex justify-center">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search by roll, name, department, position..."
-          className="p-2 w-1/2 border border-gray-300 rounded-md"
-        />
-      </div>
+      {}
+      {currentUser?.email === "admin@admin.com" && (
+        <div className="mb-4 flex justify-center">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search by roll, name, department, position..."
+            className="p-2 w-1/2 border border-gray-300 rounded-md"
+          />
+        </div>
+      )}
 
       {filteredStudents.length === 0 ? (
         <p className="text-center text-gray-600">No students found</p>
