@@ -9,6 +9,8 @@ import {
   signOut,
   RecaptchaVerifier,
   signInWithPhoneNumber,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 // Firebase configuration
@@ -40,6 +42,19 @@ export const AuthProvider = ({ children }) => {
     setError(message); // Function to update the error state
   };
 
+  // Google login function
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setCurrentUser(result.user);
+      setError(null);
+    } catch (error) {
+      setAuthError("Google login failed: " + error.message);
+      console.error("Error with Google login:", error.message);
+    }
+  };
+
   // Register a new user with email and password
   const register = async (email, password) => {
     try {
@@ -55,9 +70,9 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setError(null); 
+      setError(null);
     } catch (error) {
-      setAuthError("Login failed: " + error.message); 
+      setAuthError("Login failed: " + error.message);
       console.error("Error logging in:", error.message);
     }
   };
@@ -132,6 +147,7 @@ export const AuthProvider = ({ children }) => {
   // Provide context values
   const value = {
     currentUser,
+    loginWithGoogle,
     register,
     login,
     logout,

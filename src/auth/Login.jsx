@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
+    loginWithGoogle,
     login,
     register,
     currentUser,
@@ -43,6 +44,18 @@ const Login = () => {
       alert("Phone number verified!");
     } catch (error) {
       console.error("Error verifying OTP:", error.message);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+      console.log("Logged in with Google!");
+      setTimeout(() => {
+        navigate("/form");
+      }, 2000);
+    } catch (error) {
+      console.error("Error during Google Sign-In:", error);
     }
   };
 
@@ -109,6 +122,12 @@ const Login = () => {
 
         {/* <p>Current User: {currentUser ? currentUser.email : "None"}</p> */}
       </form>
+      <div
+        onClick={handleGoogleSignIn}
+        className="px-2 py-2 cursor-pointer w-1/5 text-center rounded-md border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300"
+      >
+        <button>Login with Google</button>
+      </div>
 
       {/* <div>
         <h1>Phone Verification</h1>
