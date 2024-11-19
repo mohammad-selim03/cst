@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase.config"; // Make sure the Firebase config is correct
 import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext";
+import TableData from "./Table";
 
 const StudentInfo = () => {
   // State to store the student information
@@ -40,12 +41,14 @@ const StudentInfo = () => {
   const filteredStudents = students?.filter((student) => {
     const searchTermLower = searchTerm?.toLowerCase();
     return (
-      student?.fullName?.toLowerCase().includes(searchTermLower) ||
+      student?.name?.toLowerCase().includes(searchTermLower) ||
       student?.roll?.toLowerCase().includes(searchTermLower) ||
       student?.deptName?.toLowerCase().includes(searchTermLower) ||
       student?.currentPosition?.toLowerCase().includes(searchTermLower)
     );
   });
+
+  console.log("student data", students)
 
   if (loading) {
     return <div>Loading...</div>; // Show loading indicator while fetching data
@@ -74,58 +77,61 @@ const StudentInfo = () => {
       {filteredStudents.length === 0 ? (
         <p className="text-center text-gray-600">No students found</p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredStudents.map((student, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg rounded-lg p-6 border border-gray-200"
-            >
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                {student.fullName}
-              </h2>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Phone:</strong>{" "}
-                {student.phone}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Email:</strong>{" "}
-                {student.email}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Dept Name:</strong>{" "}
-                {student.deptName}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Session:</strong>{" "}
-                {student.session}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Passing Year:</strong>{" "}
-                {student.passingYear}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Shift:</strong>{" "}
-                {student.shift}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Group:</strong>{" "}
-                {student.group}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Roll:</strong> {student.roll}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Address:</strong>{" "}
-                {student.address}
-              </p>
-              <p className="text-gray-700">
-                <strong className="text-gray-900">Current Position:</strong>{" "}
-                {student.currentPosition}
-              </p>
-            </div>
-          ))}
-        </div>
+        // <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        //   {filteredStudents.map((student, index) => (
+        //     <div
+        //       key={index}
+        //       className="bg-white shadow-lg rounded-lg p-6 border border-gray-200"
+        //     >
+        //       <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        //         {student.fullName}
+        //       </h2>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Phone:</strong>{" "}
+        //         {student.phone}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Email:</strong>{" "}
+        //         {student.email}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Dept Name:</strong>{" "}
+        //         {student.deptName}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Session:</strong>{" "}
+        //         {student.session}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Passing Year:</strong>{" "}
+        //         {student.passingYear}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Shift:</strong>{" "}
+        //         {student.shift}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Group:</strong>{" "}
+        //         {student.group}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Roll:</strong> {student.roll}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Address:</strong>{" "}
+        //         {student.address}
+        //       </p>
+        //       <p className="text-gray-700">
+        //         <strong className="text-gray-900">Current Position:</strong>{" "}
+        //         {student.currentPosition}
+        //       </p>
+        //     </div>
+        //   ))}
+        // </div>
+        <></>
       )}
+
+      <TableData studentData={filteredStudents} />
     </div>
   );
 };

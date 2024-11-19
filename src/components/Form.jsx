@@ -30,6 +30,13 @@ const Form = () => {
       [name]: value,
     }));
   };
+  const handleDropdownChange = (value) => {
+    setStudentInfo((prevInfo) => ({
+      ...prevInfo,
+      deptName: value, // Assuming "deptName" is the key for the dropdown data
+    }));
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +45,7 @@ const Form = () => {
       await addDoc(collection(db, "students"), studentInfo);
       setMessage("Student information submitted successfully!");
       toast.success("Student information submitted successfully!");
+      console.log("student info before submit", )
       setStudentInfo({
         name: "",
         phone: "",
@@ -60,14 +68,14 @@ const Form = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center py-3">Ex-Student Information Form</h1>
+      <h1 className="text-3xl font-bold text-center py-10">Ex-Student Information Form</h1>
       <div className="flex flex-col md:flex-row items-center gap-3 w-full">
         <div className="w-[50%]">
           <h3 className="text-xl font-semibold text-center">Register your success today!</h3>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[50%] mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-4 w-[50%] mx-auto"
         >
           <Input
             label="Name"
@@ -100,7 +108,7 @@ const Form = () => {
             onChange={handleChange}
             required={true}
           /> */}
-          <DynamicDropdown options={deptData}/>
+          <DynamicDropdown options={deptData}onChange={handleDropdownChange} />
           <Input
             label="Session"
             type="text"

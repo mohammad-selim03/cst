@@ -3,7 +3,7 @@ import { cn } from "../lib/utills";
 
 const Input = ({type, id, name, placeholder, label, className, onChange, required}) => {
   return (
-    <div className="bg-white p-4 rounded-lg">
+    <div className="bg-white rounded-lg">
       <div className="relative bg-inherit">
         <input
           type={type || "text"}
