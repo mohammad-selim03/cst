@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../Layout/Layout";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
-import Form from "../components/Form";
+import Layout from "@/layout/Layout";
+import Login from "@/auth/Login";
+import Register from "@/auth/Register";
+import StudentInfo from "@/components/StudentInfo";
 import PrivateRoute from "./PrivateRoute";
-import StudentInfo from "../components/StudentInfo";
+import Form from "@/components/Form";
 
 export const router = createBrowserRouter([
   {
