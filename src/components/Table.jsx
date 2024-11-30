@@ -10,13 +10,13 @@ import TableRow from "@mui/material/TableRow";
 
 const columns = [
   { id: "name", label: "Full Name", minWidth: 150 },
-  { id: "deptName", label: "Department Name", minWidth: 150 },
   { id: "roll", label: "Roll", minWidth: 100 },
   { id: "session", label: "Session", minWidth: 100 },
   { id: "passingYear", label: "Passing Year", minWidth: 130 },
-//   { id: "shift", label: "Shift", minWidth: 100 },
-  { id: "phone", label: "Phone", minWidth: 150 },
+  //   { id: "shift", label: "Shift", minWidth: 100 },
+{ id: "phone", label: "Phone", minWidth: 150 },
   { id: "email", label: "Email", minWidth: 200 },
+  { id: "fieldName", label: "Field Name", minWidth: 150 },
   { id: "currentPosition", label: "Current Position", minWidth: 200 },
   { id: "address", label: "Address", minWidth: 200 },
 ];
@@ -44,7 +44,7 @@ const TableData = ({ studentData = [] }) => {
                 <TableCell
                   key={column.id}
                   align={column.align || "left"}
-                  style={{ minWidth: column.minWidth , fontWeight: "semibold"}}
+                  style={{ minWidth: column.minWidth , fontWeight: "bold"}}
                 >
                   {column.label}
                 </TableCell>

@@ -37,8 +37,8 @@ const Register = () => {
 
   return (
     <div>
-      <form onSubmit={handleRegister} className="flex flex-col gap-3 w-1/2">
-        <h1>Register</h1>
+      <form onSubmit={handleRegister} className="flex flex-col gap-3 w-1/2 mx-auto pt-20">
+        <h1 className="text-xl md:text-2xl font-semibold text-center mb-5">Register</h1>
         <input
           className="border border-gray-500 rounded-md py-2 px-3"
           type="email"
@@ -59,16 +59,16 @@ const Register = () => {
         <p>
           Already have an account?{" "}
           <Link to={"/login"} className="text-blue-600">
-            login
+            Login
           </Link>
         </p>
         {/* {currentUser && <button onClick={handleLogout}>Logout</button>} */}
         {/* <p>Current User: {currentUser ? currentUser.email : "None"}</p> */}
-        <button type="submit">Register</button>
+        <button type="submit" className="bg-green-500 text-white px-5 py-2 rounded-md">Register</button>
       </form>
       <div
         onClick={handleGoogleSignIn}
-        className="px-2 py-2 cursor-pointer w-1/5 text-center rounded-md border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300"
+        className="px-2 py-2 cursor-pointer w-1/2 mx-auto mt-5 text-center rounded-md border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300"
       >
         <button>Register with Google</button>
       </div>

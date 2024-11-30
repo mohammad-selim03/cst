@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DynamicDropdown = ({ options }) => {
+const DynamicDropdown = ({ options, onChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [selectedOption, setSelectedOption] = useState("");
@@ -31,11 +31,12 @@ const DynamicDropdown = ({ options }) => {
   return (
     <div className="dropdown-container relative md:-ml-4">
       <input
+      name="fieldName"
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
         onClick={toggleDropdown} // Show dropdown when clicked
-        placeholder="Search or select Department"
+        placeholder="Search or select field"
         className="peer bg-transparent h-10 w-[100%] md:w-[96%]  rounded-lg  ring-1 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600  md:ml-4 placheholder:text-black"
       />
       {isDropdownOpen && filteredOptions.length > 0 && (

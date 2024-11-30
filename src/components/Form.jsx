@@ -4,14 +4,14 @@ import { db } from "../config/firebase.config"; // Import Firestore instance
 import toast from "react-hot-toast";
 import Input from "./Input";
 import DynamicDropdown from "./DynamicDropdown";
-import { deptData } from "../assets/Data";
+import { fieldsData } from "../assets/Data";
 
 const Form = () => {
   const [studentInfo, setStudentInfo] = useState({
     name: "",
     phone: "",
     email: "",
-    deptName: "",
+    fieldName: "",
     session: "",
     passingYear: "",
     shift: "",
@@ -33,7 +33,7 @@ const Form = () => {
   const handleDropdownChange = (value) => {
     setStudentInfo((prevInfo) => ({
       ...prevInfo,
-      deptName: value, // Assuming "deptName" is the key for the dropdown data
+      fieldName: value, // Assuming "deptName" is the key for the dropdown data
     }));
   };
   
@@ -45,17 +45,17 @@ const Form = () => {
       await addDoc(collection(db, "students"), studentInfo);
       setMessage("Student information submitted successfully!");
       toast.success("Student information submitted successfully!");
-      console.log("student info before submit", )
+      console.log("student info before submit",studentInfo )
       setStudentInfo({
         name: "",
         phone: "",
         email: "",
-        deptName: "",
         session: "",
         passingYear: "",
         shift: "",
         group: "",
         roll: "",
+        field: "",
         address: "",
         currentPosition: "",
       });
@@ -67,18 +67,18 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-center py-10">Ex-Student Information Form</h1>
+    <div className="pb-10">
+      <h1 className="text-3xl font-bold text-center py-10 ">Ex-Student Information Form</h1>
       <div className="flex flex-col md:flex-row items-center gap-3 w-full">
         <div className="w-[50%]">
-          <h3 className="text-xl font-semibold text-center">Register your success today!</h3>
+          <h3 className="text-xl font-semibold text-center text-green-500">Register your success today!</h3>
         </div>
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-4 w-[50%] mx-auto"
         >
           <Input
-            label="Name"
+            label="Name*"
             type="text"
             name="name"
             value={studentInfo.name}
@@ -86,7 +86,7 @@ const Form = () => {
             required={true}
           />
           <Input
-            label="Phone"
+            label="Phone*"
             type="number"
             name="phone"
             value={studentInfo.phone}
@@ -100,15 +100,8 @@ const Form = () => {
             value={studentInfo.email}
             onChange={handleChange}
           />
-          {/* <Input
-            label="Dept Name"
-            type="text"
-            name="deptName"
-            value={studentInfo.deptName}
-            onChange={handleChange}
-            required={true}
-          /> */}
-          <DynamicDropdown options={deptData}onChange={handleDropdownChange} />
+      
+          <DynamicDropdown options={fieldsData}onChange={handleDropdownChange} />
           <Input
             label="Session"
             type="text"
@@ -138,7 +131,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            label="Roll"
+            label="Roll*"
             type="number"
             name="roll"
             value={studentInfo.roll}
@@ -153,7 +146,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            label="Current Position"
+            label="Current Position*"
             type="text"
             name="currentPosition"
             value={studentInfo.currentPosition}
@@ -166,7 +159,7 @@ const Form = () => {
           >
             Submit
           </button>
-          {message && <p className="mt-3 md:col-span-2 text-center">{message}</p>}
+          {message && <p className="mt-3 md:col-span-2 text-center text-green-500">{message}</p>}
         </form>
       </div>
     </div>

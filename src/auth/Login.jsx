@@ -84,11 +84,11 @@ const Login = () => {
 
   return (
     <>
-      <form className="flex flex-col gap-3 w-1/2" onSubmit={handleLogin}>
+      <form className="flex flex-col gap-3 w-1/2 mx-auto pt-20" onSubmit={handleLogin}>
         <div className="flex flex-col gap-1">
           <h1
             onClick={() => toast.success("click")}
-            className="cursor-pointer text-xl font-semibold"
+            className="cursor-pointer text-xl md:text-2xl text-center font-semibold  mb-5"
           >
             Login
           </h1>
@@ -118,13 +118,13 @@ const Login = () => {
           </Link>
         </p>
 
-        <button type="submit">Login</button>
+        <button type="submit" className=" bg-green-500 px-5 py-2 rounded-md font-semibold text-white">Login</button>
 
         {/* <p>Current User: {currentUser ? currentUser.email : "None"}</p> */}
       </form>
       <div
         onClick={handleGoogleSignIn}
-        className="px-2 py-2 cursor-pointer w-1/5 text-center rounded-md border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300"
+        className="px-2 py-2 cursor-pointer w-1/2 mx-auto text-center rounded-md border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300 mt-5"
       >
         <button>Login with Google</button>
       </div>
